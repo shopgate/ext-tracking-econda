@@ -1,2 +1,2 @@
-# Econda tracking plugin for hessnatur
+# Econda (emos2) tracking plugin
 
