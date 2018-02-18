@@ -1,0 +1,32 @@
+{
+  "name": "@shopgate/ext-tracking-econda",
+  "version": "1.0.0",
+  "description": "Econda tracking extension",
+  "main": "frontend/index.js",
+  "repository": "git@https://github.com/shopgate/ext-tracking-econda.git",
+  "author": "Shopgate <support@shopgate.com>",
+  "license": "Apache-2.0",
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "concurrent": false,
+    "linters": {
+      "*.js": "eslint --parser babel-eslint"
+    }
+  },
+  "pre-commit": [
+    "precommit"
+  ],
+  "dependencies": {
+    "@shopgate/tracking-core": "^1.0.12",
+    "crypto-js": "^3.1.9-1"
+  },
+  "devDependencies": {
+    "@shopgate/eslint-config": "1.0.2",
+    "@shopgate/pwa-tracking": "^1.2.8",
+    "@shopgate/pwa-common": "^2.4.1",
+    "lint-staged": "4.0.3",
+    "pre-commit": "1.2.2"
+  }
+}
