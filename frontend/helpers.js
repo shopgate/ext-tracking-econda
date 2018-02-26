@@ -29,17 +29,17 @@ export const getEmosproForUid = uid => ({
 
 /**
  * Returns the data for the ec_Event of a product or variant.
- * @param {Object} baseProduct The base (parent) product.
+ * @param {Object} [baseProduct] The base (parent) product.
  * @param {Object} [variant] The selected variant.
  * @return {Object} ec_Event data of the given product
  */
-export const getProductEventData = (baseProduct, variant = {}) => {
+export const getProductEventData = (baseProduct = {}, variant = {}) => {
   const variantAvailable = !!Object.keys(variant).length;
   const product = variantAvailable ? variant : baseProduct;
 
   return {
     type: 'view',
-    pid: baseProduct.uid,
+    pid: baseProduct ? baseProduct.uid : '',
     sku: variant.uid ? variant.uid : '',
     name: product.name,
     price: parseFloat(product.amount.net),
