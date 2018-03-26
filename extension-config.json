@@ -16,7 +16,7 @@
       "params": {
         "method": "GET",
         "service": "config",
-        "path": "/v1/shop/%(shopId)s/sg_connect_econda?parsed=true",
+        "path": "/v1/shop/%(shopId)s/sg_connect_tracking_econda?parsed=true",
         "key": "value"
       }
     }

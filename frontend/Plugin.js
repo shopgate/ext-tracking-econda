@@ -155,7 +155,7 @@ class Econda extends TrackingPlugin {
         billing: [
           order.number,
           CryptoJs.MD5(userId).toString(),
-          'NULL', // TODO: LOCATION. Not available at the moment
+          'NULL', // LOCATION. Not available at the moment
           parseFloat(order.amount.gross),
         ],
         ec_Event: order.products.map(product => ({
@@ -174,18 +174,11 @@ class Econda extends TrackingPlugin {
    * @param {boolean} [sendAsEvent=false] Flag to send just a event
    */
   send = (data, sendAsEvent = false) => {
-    // TODO: remove log after Plugin is completely done
-    console.warn({
-      ...(sendAsEvent ? {} : this.basicData),
-      ...data,
-    });
-
     window.emosPropertiesEvent({
       ...(sendAsEvent ? {} : this.basicData),
       ...data,
     });
   };
-
 }
 
 export default Econda;
