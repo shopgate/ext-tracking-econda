@@ -20,13 +20,13 @@
   ],
   "dependencies": {
     "@shopgate/tracking-core": "^5.0.3",
-    "crypto-js": "^3.1.9-1",
-    "eslint": "^4.19.1"
+    "crypto-js": "^3.1.9-1"
   },
   "devDependencies": {
     "@shopgate/eslint-config": "^5.0.3",
     "@shopgate/pwa-tracking": "^5.0.3",
     "@shopgate/pwa-common": "^5.0.3",
+    "eslint": "^4.19.1",
     "lint-staged": "4.0.3",
     "pre-commit": "1.2.2"
   }
