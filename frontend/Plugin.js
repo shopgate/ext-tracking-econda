@@ -22,12 +22,20 @@ class Econda extends TrackingPlugin {
   /**
    * Constructor
    *
-   * @param {Object} options Config values for econda
+   * @param {Object} config Config values for econda
    */
-  constructor(options = {}) {
+  constructor(config = {}) {
     super('econda');
 
+    const options = {
+      useNetPrices: true,
+      excludeShipping: true,
+      ...config,
+    };
+
     this.clientKey = options.clientKey;
+    this.useNetPrices = options.useNetPrices;
+    this.excludeShipping = options.excludeShipping;
 
     this.basicData = {
       siteid: options.siteid,
@@ -149,6 +157,12 @@ class Econda extends TrackingPlugin {
     this.register.purchase((data, { order }, scope, state) => {
       const userId = state.user.data ? state.user.data.id : '';
 
+      let orderTotal = parseFloat(this.useNetPrices ? order.amount.net : order.amount.gross);
+
+      if (this.excludeShipping) {
+        orderTotal -= parseFloat(order.shipping.amount[this.useNetPrices ? 'net' : 'gross']);
+      }
+
       const emospro = {
         ...getEmosproForUrl(`checkout_success/${order.number}`),
         orderProcess: '7_Bestaetigung',
@@ -156,7 +170,7 @@ class Econda extends TrackingPlugin {
           order.number,
           CryptoJs.MD5(userId).toString(),
           'NULL', // LOCATION. Not available at the moment
-          parseFloat(order.amount.gross),
+          orderTotal,
         ],
         ec_Event: order.products.map(product => ({
           ...getProductEventData(product),
