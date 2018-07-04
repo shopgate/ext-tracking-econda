@@ -42,3 +42,6 @@ node_modules/
 
 # WebPack Cache
 .cache-loader
+package-lock.json
+config.json
+
