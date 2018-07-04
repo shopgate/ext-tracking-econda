@@ -28,8 +28,11 @@ class Econda extends TrackingPlugin {
     super('econda');
 
     const options = {
-      useNetPrices: true,
-      excludeShipping: true,
+      /**
+       * UseNetPrices and excludeShipping only effects the purchase event data
+       */
+      useNetPrices: false,
+      excludeShipping: false,
       ...config,
     };
 
@@ -60,7 +63,7 @@ class Econda extends TrackingPlugin {
     initSDK();
 
     this.register.pageview(({ page }) => {
-      // Some page should be ignored here
+      // Some pages should be ignored here
       if (this.ignoredPageviews.includes(page.shopgateUrl)) {
         return;
       }
