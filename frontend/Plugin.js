@@ -103,12 +103,15 @@ class Econda extends TrackingPlugin {
       this.send(emospro, true);
     });
 
-    this.register.addToCart((data, { products }, scope, state) => {
-      const baseProduct = getCurrentBaseProductFormatted(state);
+    this.register.addToCart((data, { products, page = {} }, scope, state) => {
+      const baseProduct = getCurrentBaseProductFormatted(state) || {};
       const [variant] = products;
 
+      const emosproUrlParams = baseProduct.uid ?
+        getEmosproForUid(baseProduct.uid) : getEmosproForUrl(page.link);
+
       const emospro = {
-        ...getEmosproForUid(baseProduct.uid),
+        ...emosproUrlParams,
         ec_Event: [{
           ...getProductEventData(baseProduct, variant),
           type: 'c_add',
