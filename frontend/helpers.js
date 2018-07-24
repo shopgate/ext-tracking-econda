@@ -31,18 +31,26 @@ export const getEmosproForUid = uid => ({
  * Returns the data for the ec_Event of a product or variant.
  * @param {Object} [baseProduct] The base (parent) product.
  * @param {Object} [variant] The selected variant.
- * @param {boolean} sendParentUid The parent uid will be sent. Even for a variant article.
+ * @param {boolean} [sendParentData=false] The parent data will be sent. Even for a variant article.
  * @return {Object} ec_Event data of the given product
  */
-export const getProductEventData = (baseProduct = {}, variant = {}, sendParentUid = false) => {
+export const getProductEventData = (baseProduct = {}, variant = {}, sendParentData = false) => {
   const variantAvailable = !!Object.keys(variant).length;
-  const product = variantAvailable ? variant : baseProduct;
-  const productUid = (sendParentUid && variantAvailable) ? baseProduct.uid : product.uid;
+  
+  let product = {};
+
+  if (sendParentData) {
+    product = baseProduct;
+  } else {
+    product = variantAvailable ? variant : baseProduct;
+  }
+
+  console.log(product);
 
   return {
     type: 'view',
-    pid: baseProduct ? baseProduct.uid : '',
-    sku: productUid,
+    pid: product ? product.uid : '',
+    sku: product ? product.uid : '',
     name: product.name,
     price: parseFloat(product.amount.net),
     group: 'NULL',
