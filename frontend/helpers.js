@@ -40,7 +40,8 @@ export const getProductEventData = (baseProduct = {}, variant = {}, sendParentDa
   let product = {};
 
   if (sendParentData) {
-    product = baseProduct;
+    // If the addToCart is called from outside the PDP, baseProduct is not always available
+    product = baseProduct.uid ? baseProduct : variant;
   } else {
     product = variantAvailable ? variant : baseProduct;
   }
