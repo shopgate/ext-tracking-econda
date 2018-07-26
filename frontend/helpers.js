@@ -31,16 +31,25 @@ export const getEmosproForUid = uid => ({
  * Returns the data for the ec_Event of a product or variant.
  * @param {Object} [baseProduct] The base (parent) product.
  * @param {Object} [variant] The selected variant.
+ * @param {boolean} [sendParentData=false] The parent data will be sent. Even for a variant article.
  * @return {Object} ec_Event data of the given product
  */
-export const getProductEventData = (baseProduct = {}, variant = {}) => {
+export const getProductEventData = (baseProduct = {}, variant = {}, sendParentData = false) => {
   const variantAvailable = !!Object.keys(variant).length;
-  const product = variantAvailable ? variant : baseProduct;
+
+  let product = {};
+
+  if (sendParentData) {
+    // If the addToCart is called from outside the PDP, baseProduct is not always available
+    product = baseProduct.uid ? baseProduct : variant;
+  } else {
+    product = variantAvailable ? variant : baseProduct;
+  }
 
   return {
     type: 'view',
-    pid: baseProduct ? baseProduct.uid : '',
-    sku: variant.uid ? variant.uid : '',
+    pid: product ? product.uid : '',
+    sku: product ? product.uid : '',
     name: product.name,
     price: parseFloat(product.amount.net),
     group: 'NULL',

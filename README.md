@@ -4,7 +4,7 @@ Implementation of the default econda tracking plus ecommerce tracking.
 
 ## Configuration
 
-The extension get the values for clientKey, siteid, langid and countryid from a shop config (Key: `sg_connect_tracking_econda`).
+The extension get the values for clientKey, siteid, langid, countryid and sendParentData from a shop config (Key: `sg_connect_tracking_econda`).
 
 **Example Config:** 
 ```
@@ -12,7 +12,8 @@ The extension get the values for clientKey, siteid, langid and countryid from a 
     "siteid": "de",
     "clientKey": "1234-acbd-",
     "langid": "de",
-    "countryid": "de"
+    "countryid": "de",
+    "sendParentData": true
 }
 ```
 

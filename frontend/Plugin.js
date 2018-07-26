@@ -39,6 +39,7 @@ class Econda extends TrackingPlugin {
     this.clientKey = options.clientKey;
     this.useNetPrices = options.useNetPrices;
     this.excludeShipping = options.excludeShipping;
+    this.sendParentData = options.sendParentData;
 
     this.basicData = {
       siteid: options.siteid,
@@ -97,7 +98,7 @@ class Econda extends TrackingPlugin {
     this.register.variantSelected((data, { baseProduct, variant }) => {
       const emospro = {
         type: 'event',
-        ec_Event: [getProductEventData(baseProduct, variant)],
+        ec_Event: [getProductEventData(baseProduct, variant, this.sendParentData)],
       };
 
       this.send(emospro, true);
@@ -113,7 +114,7 @@ class Econda extends TrackingPlugin {
       const emospro = {
         ...emosproUrlParams,
         ec_Event: [{
-          ...getProductEventData(baseProduct, variant),
+          ...getProductEventData(baseProduct, variant, this.sendParentData),
           type: 'c_add',
         }],
       };
