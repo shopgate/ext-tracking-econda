@@ -36,7 +36,7 @@ export const getEmosproForUid = uid => ({
  */
 export const getProductEventData = (baseProduct = {}, variant = {}, sendParentData = false) => {
   const variantAvailable = !!Object.keys(variant).length;
-  
+
   let product = {};
 
   if (sendParentData) {
@@ -45,8 +45,6 @@ export const getProductEventData = (baseProduct = {}, variant = {}, sendParentDa
   } else {
     product = variantAvailable ? variant : baseProduct;
   }
-
-  console.log(product);
 
   return {
     type: 'view',
